@@ -6,6 +6,9 @@ const emptyState = document.getElementById("emptyState");
 const productsCountEl = document.getElementById("productsCount");
 const paginationContainer = document.getElementById("pagination");
 
+const navbarSearchInput = document.getElementById("navbarSearch");
+const navbarSearchBtn = document.getElementById("navbarSearchBtn");
+
 const categoryFilter = document.getElementById("categoryFilter");
 const minPriceInput = document.getElementById("minPrice");
 const maxPriceInput = document.getElementById("maxPrice");
@@ -23,10 +26,13 @@ const closeWelcomeBtn = document.getElementById("closeWelcomeBtn");
 const gridViewBtn = document.getElementById("gridViewBtn");
 const listViewBtn = document.getElementById("listViewBtn");
 
+const cartCountEl = document.getElementById("cartCount");
+
 let products = [];
 let filteredProducts = [];
 let currentPage = 1;
 const ITEMS_PER_PAGE = 8;
+let cartItems = [];
 
 // ==== Theme (Light / Dark) ====
 function initTheme() {
@@ -51,6 +57,39 @@ modeToggleBtn.addEventListener("click", () => {
   localStorage.setItem("products-ui-theme", mode);
   updateModeToggleText();
 });
+
+// ==== Cart ====
+function loadCartFromStorage() {
+  try {
+    const raw = localStorage.getItem("products-ui-cart");
+    cartItems = raw ? JSON.parse(raw) : [];
+  } catch {
+    cartItems = [];
+  }
+  updateCartCount(cartItems.length);
+}
+
+function saveCartToStorage() {
+  localStorage.setItem("products-ui-cart", JSON.stringify(cartItems));
+}
+
+function updateCartCount(count) {
+  if (!cartCountEl) return;
+  if (count <= 0) {
+    cartCountEl.textContent = "0";
+    cartCountEl.hidden = true;
+  } else {
+    cartCountEl.textContent = String(count);
+    cartCountEl.hidden = false;
+  }
+}
+
+function addToCart(product) {
+  // Store only product IDs for simplicity
+  cartItems.push(product.id);
+  saveCartToStorage();
+  updateCartCount(cartItems.length);
+}
 
 // ==== View Mode (Grid / List) ====
 function setGridView() {
@@ -114,6 +153,43 @@ function populateCategoryFilter(productsArray) {
     option.textContent = cat;
     categoryFilter.appendChild(option);
   });
+
+  // Restore saved category selection from localStorage (if any)
+  const savedCategory = localStorage.getItem("products-ui-category");
+  if (savedCategory) {
+    categoryFilter.value = savedCategory;
+  }
+}
+
+// Restore saved filter values (except category which depends on options)
+function initFiltersFromStorage() {
+  const savedMinPrice = localStorage.getItem("products-ui-minPrice");
+  if (savedMinPrice !== null) {
+    minPriceInput.value = savedMinPrice;
+  }
+
+  const savedMaxPrice = localStorage.getItem("products-ui-maxPrice");
+  if (savedMaxPrice !== null) {
+    maxPriceInput.value = savedMaxPrice;
+  }
+
+  const savedNameQuery = localStorage.getItem("products-ui-name");
+  if (savedNameQuery !== null) {
+    nameFilterInput.value = savedNameQuery;
+    if (navbarSearchInput) {
+      navbarSearchInput.value = savedNameQuery;
+    }
+  }
+
+  const savedMinRating = localStorage.getItem("products-ui-rating");
+  if (savedMinRating !== null) {
+    ratingFilterInput.value = savedMinRating;
+  }
+
+  const savedSort = localStorage.getItem("products-ui-sort");
+  if (savedSort !== null) {
+    sortSelect.value = savedSort;
+  }
 }
 
 function renderProducts(productsArray, totalCount) {
@@ -169,6 +245,11 @@ function renderProducts(productsArray, totalCount) {
     ratingBadge.className = "product-rating-badge";
     ratingBadge.textContent = `⭐ ${ratingValue.toFixed(1)} (${ratingCount})`;
 
+    const addToCartBtn = document.createElement("button");
+    addToCartBtn.className = "btn-add-cart";
+    addToCartBtn.type = "button";
+    addToCartBtn.textContent = "Add to cart";
+
     const detailsBtn = document.createElement("button");
     detailsBtn.className = "btn-details";
     detailsBtn.type = "button";
@@ -176,6 +257,7 @@ function renderProducts(productsArray, totalCount) {
 
     footer.appendChild(price);
     footer.appendChild(ratingBadge);
+    footer.appendChild(addToCartBtn);
     footer.appendChild(detailsBtn);
 
     const extra = document.createElement("div");
@@ -187,6 +269,10 @@ function renderProducts(productsArray, totalCount) {
     description.textContent = product.description;
 
     extra.appendChild(description);
+
+    addToCartBtn.addEventListener("click", () => {
+      addToCart(product);
+    });
 
     detailsBtn.addEventListener("click", () => {
       const isHidden = extra.hasAttribute("hidden");
@@ -328,20 +414,75 @@ function applyFilters() {
 }
 
 // ==== Event Listeners for Filters & Sorting ====
-categoryFilter.addEventListener("change", applyFilters);
-minPriceInput.addEventListener("input", applyFilters);
-maxPriceInput.addEventListener("input", applyFilters);
-nameFilterInput.addEventListener("input", applyFilters);
-ratingFilterInput.addEventListener("input", applyFilters);
-sortSelect.addEventListener("change", applyFilters);
+function handleCategoryChange() {
+  localStorage.setItem("products-ui-category", categoryFilter.value || "");
+  applyFilters();
+}
+
+categoryFilter.addEventListener("change", handleCategoryChange);
+
+function handleMinPriceInput() {
+  localStorage.setItem("products-ui-minPrice", minPriceInput.value || "");
+  applyFilters();
+}
+
+function handleMaxPriceInput() {
+  localStorage.setItem("products-ui-maxPrice", maxPriceInput.value || "");
+  applyFilters();
+}
+
+function handleNameFilterInput() {
+  localStorage.setItem("products-ui-name", nameFilterInput.value || "");
+  if (navbarSearchInput) {
+    navbarSearchInput.value = nameFilterInput.value;
+  }
+  applyFilters();
+}
+
+function handleRatingFilterInput() {
+  localStorage.setItem("products-ui-rating", ratingFilterInput.value || "");
+  applyFilters();
+}
+
+function handleSortChange() {
+  localStorage.setItem("products-ui-sort", sortSelect.value || "");
+  applyFilters();
+}
+
+minPriceInput.addEventListener("input", handleMinPriceInput);
+maxPriceInput.addEventListener("input", handleMaxPriceInput);
+nameFilterInput.addEventListener("input", handleNameFilterInput);
+ratingFilterInput.addEventListener("input", handleRatingFilterInput);
+sortSelect.addEventListener("change", handleSortChange);
+
+function handleNavbarSearch() {
+  if (!navbarSearchInput) return;
+  nameFilterInput.value = navbarSearchInput.value;
+  handleNameFilterInput();
+}
+
+if (navbarSearchInput && navbarSearchBtn) {
+  navbarSearchBtn.addEventListener("click", handleNavbarSearch);
+  navbarSearchInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      handleNavbarSearch();
+    }
+  });
+}
 
 resetFiltersBtn.addEventListener("click", () => {
   categoryFilter.value = "";
+  localStorage.removeItem("products-ui-category");
   minPriceInput.value = "";
   maxPriceInput.value = "";
   nameFilterInput.value = "";
   ratingFilterInput.value = "";
   sortSelect.value = "";
+  localStorage.removeItem("products-ui-minPrice");
+  localStorage.removeItem("products-ui-maxPrice");
+  localStorage.removeItem("products-ui-name");
+  localStorage.removeItem("products-ui-rating");
+  localStorage.removeItem("products-ui-sort");
   applyFilters();
 });
 
@@ -349,5 +490,7 @@ resetFiltersBtn.addEventListener("click", () => {
 document.addEventListener("DOMContentLoaded", () => {
   initTheme();
   initViewMode();
+  initFiltersFromStorage();
+  loadCartFromStorage();
   fetchProducts();
 });

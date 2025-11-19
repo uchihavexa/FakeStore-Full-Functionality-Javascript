@@ -8,18 +8,58 @@
   </head>
   <body>
     <div class="app">
+      <nav class="navbar">
+        <div class="navbar-left">
+          <span class="navbar-logo">🛒</span>
+          <div class="navbar-brand">
+            <span class="navbar-brand-main">AliStore</span>
+            <span class="navbar-brand-sub">Best Deals</span>
+          </div>
+        </div>
+
+        <div class="navbar-center">
+          <div class="navbar-search">
+            <input
+              type="text"
+              id="navbarSearch"
+              class="navbar-search-input"
+              placeholder="Search for products, categories..."
+            />
+            <button id="navbarSearchBtn" class="navbar-search-btn">
+              Search
+            </button>
+          </div>
+        </div>
+
+        <div class="navbar-right">
+          <button class="navbar-action" type="button">
+            <span class="navbar-action-icon">👤</span>
+            <span class="navbar-action-text">Account</span>
+          </button>
+          <button class="navbar-action" type="button">
+            <span class="navbar-action-icon">📦</span>
+            <span class="navbar-action-text">Orders</span>
+          </button>
+          <a class="navbar-action" href="cart.html" id="cartButton">
+            <span class="navbar-action-icon">🛒</span>
+            <span class="navbar-action-text">Cart</span>
+            <span class="cart-count-badge" id="cartCount" hidden>0</span>
+          </a>
+          <button id="modeToggle" class="mode-toggle">
+            <span class="mode-toggle-icon">🌙</span>
+            <span id="modeToggleText">Dark Mode</span>
+          </button>
+        </div>
+      </nav>
+
       <header>
         <div class="title-group">
-          <h1>Products Filtering &amp; UI</h1>
+          <h1>AliStore – Online Shopping</h1>
           <p>
-            فلترة المنتجات حسب الفئة، السعر، الاسم، والتقييم – مع Light / Dark
-            Mode ✨
+            تسوّق أفضل العروض على الإلكترونيات، الأزياء، والإكسسوارات مع تجربة
+            تصفح مريحة وواجهة Light / Dark Mode ✨
           </p>
         </div>
-        <button id="modeToggle" class="mode-toggle">
-          <span class="mode-toggle-icon">🌙</span>
-          <span id="modeToggleText">Dark Mode</span>
-        </button>
       </header>
 
       <!-- Welcome Message -->
@@ -40,7 +80,7 @@
       </div>
 
       <!-- Filters -->
-      <section class="filters-card">
+      <section class="filters-card" id="filters">
         <div class="filters-header">
           <h2>فلترة المنتجات / Filter Products</h2>
           <p>
@@ -137,7 +177,7 @@
       </section>
 
       <!-- Products -->
-      <section>
+      <section id="products">
         <div class="products-section-header">
           <h2>المنتجات / Products</h2>
           <p class="products-count">
