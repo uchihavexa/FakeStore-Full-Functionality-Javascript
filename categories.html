@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>AliStore – Categories</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app">
+      <nav class="navbar">
+        <a class="navbar-left navbar-logo-link" href="index.html" aria-label="Go to home">
+          <span class="navbar-logo">🛒</span>
+          <div class="navbar-brand">
+            <span class="navbar-brand-main">AliStore</span>
+            <span class="navbar-brand-sub">Best Deals</span>
+          </div>
+        </a>
+
+        <div class="navbar-center">
+          <div class="navbar-search">
+            <input
+              type="text"
+              class="navbar-search-input"
+              placeholder="Search for products..."
+              disabled
+            />
+            <button class="navbar-search-btn" disabled>Search</button>
+          </div>
+        </div>
+
+        <div class="navbar-right">
+          <a class="navbar-action" href="account.html">
+            <span class="navbar-action-icon">👤</span>
+            <span class="navbar-action-text">Account</span>
+          </a>
+          <a class="navbar-action" href="orders.html">
+            <span class="navbar-action-icon">📦</span>
+            <span class="navbar-action-text">Orders</span>
+          </a>
+          <a class="navbar-action" href="cart.html" id="cartButton">
+            <span class="navbar-action-icon">🛒</span>
+            <span class="navbar-action-text">Cart</span>
+            <span class="cart-count-badge" id="cartCount" hidden>0</span>
+          </a>
+          <button id="modeToggle" class="mode-toggle">
+            <span class="mode-toggle-icon">🌙</span>
+            <span id="modeToggleText">Dark Mode</span>
+          </button>
+        </div>
+      </nav>
+
+      <header>
+        <div class="title-group">
+          <h1>Shop by Category</h1>
+          <p>تصنيفات متنوعة لمنتجاتنا. اختر الفئة للانتقال مباشرة للمنتجات.</p>
+        </div>
+      </header>
+
+      <section class="collection-grid" aria-label="Featured collections">
+        <article class="collection-card">
+          <div class="collection-label">Editor’s pick</div>
+          <h3>Everyday essentials</h3>
+          <p>اكتشف منتجات مضمونة للاستخدام اليومي.</p>
+          <a href="index.html" class="btn-ghost-link">Browse all →</a>
+        </article>
+        <article class="collection-card">
+          <div class="collection-label">On the go</div>
+          <h3>Travel light</h3>
+          <p>حقيبة، إكسسوارات، وأدوات تساعدك أثناء السفر.</p>
+          <a href="index.html" class="btn-ghost-link">See products →</a>
+        </article>
+        <article class="collection-card">
+          <div class="collection-label">Work</div>
+          <h3>Productivity gear</h3>
+          <p>معدات ذكية لمكتب منزلي مريح.</p>
+          <a href="index.html" class="btn-ghost-link">View lineup →</a>
+        </article>
+      </section>
+
+      <section class="category-section">
+        <div class="section-header">
+          <div>
+            <h2>All categories</h2>
+            <p class="muted">Click a category to see products filtered automatically.</p>
+          </div>
+          <a href="index.html" class="btn-details">← Back to products</a>
+        </div>
+
+        <div id="categoriesLoading" class="loading">Loading categories...</div>
+        <div id="categoriesError" class="empty-state" hidden>
+          تعذّر تحميل التصنيفات. حاول التحديث.
+        </div>
+        <div id="categoriesGrid" class="category-grid" hidden></div>
+      </section>
+
+      <section class="newsletter-card" aria-label="Newsletter signup">
+        <div>
+          <h3>Stay in the loop</h3>
+          <p>Get weekly drops, early access, and curated offers.</p>
+        </div>
+        <form class="newsletter-form">
+          <input
+            type="email"
+            name="email"
+            placeholder="Enter your email"
+            required
+            class="filter-input"
+          />
+          <button type="submit" class="btn-add-cart">Subscribe</button>
+        </form>
+      </section>
+
+      <footer class="site-footer">
+        <div class="footer-brand">
+          <span class="navbar-logo">🛒</span>
+          <div>
+            <div class="footer-title">AliStore</div>
+            <div class="footer-subtitle">Deals, reviews, and lightning-fast checkout.</div>
+          </div>
+        </div>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="cart.html">Cart</a>
+          <a href="payment.html">Checkout</a>
+          <a href="orders.html">Orders</a>
+          <a href="categories.html">Categories</a>
+          <a href="account.html">Account</a>
+          <a href="login.html">Login</a>
+          <a href="register.html">Register</a>
+          <a href="index.html#filters">Filters</a>
+        </div>
+        <div class="footer-note">Built with ❤️ for shoppers everywhere.</div>
+      </footer>
+    </div>
+
+    <script src="page-common.js"></script>
+    <script src="categories.js"></script>
+  </body>
+</html>

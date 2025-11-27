@@ -9,13 +9,13 @@
   <body>
     <div class="app">
       <nav class="navbar">
-        <div class="navbar-left">
+        <a class="navbar-left navbar-logo-link" href="index.html" aria-label="Go to home">
           <span class="navbar-logo">🛒</span>
           <div class="navbar-brand">
             <span class="navbar-brand-main">AliStore</span>
             <span class="navbar-brand-sub">Best Deals</span>
           </div>
-        </div>
+        </a>
 
         <div class="navbar-center">
           <div class="navbar-search">
@@ -32,14 +32,14 @@
         </div>
 
         <div class="navbar-right">
-          <button class="navbar-action" type="button">
+          <a class="navbar-action" href="account.html">
             <span class="navbar-action-icon">👤</span>
             <span class="navbar-action-text">Account</span>
-          </button>
-          <button class="navbar-action" type="button">
+          </a>
+          <a class="navbar-action" href="orders.html">
             <span class="navbar-action-icon">📦</span>
             <span class="navbar-action-text">Orders</span>
-          </button>
+          </a>
           <a class="navbar-action" href="cart.html" id="cartButton">
             <span class="navbar-action-icon">🛒</span>
             <span class="navbar-action-text">Cart</span>
@@ -78,6 +78,51 @@
           ×
         </button>
       </div>
+
+      <section class="advantages-bar" aria-label="Store advantages">
+        <div class="advantage-item">
+          <span class="advantage-icon">⚡</span>
+          <div>
+            <div class="advantage-title">Fast shipping</div>
+            <div class="advantage-desc">2-day delivery to most regions.</div>
+          </div>
+        </div>
+        <div class="advantage-item">
+          <span class="advantage-icon">💳</span>
+          <div>
+            <div class="advantage-title">Secure checkout</div>
+            <div class="advantage-desc">SSL payments with buyer protection.</div>
+          </div>
+        </div>
+        <div class="advantage-item">
+          <span class="advantage-icon">🤝</span>
+          <div>
+            <div class="advantage-title">Free returns</div>
+            <div class="advantage-desc">30-day easy returns on all items.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="collection-grid" aria-label="Featured collections">
+        <article class="collection-card">
+          <div class="collection-label">New</div>
+          <h3>Urban Essentials</h3>
+          <p>Minimalist picks for everyday comfort and style.</p>
+          <a href="#products" class="btn-ghost-link">Shop this edit →</a>
+        </article>
+        <article class="collection-card">
+          <div class="collection-label">Trending</div>
+          <h3>Work From Anywhere</h3>
+          <p>Ergonomic gear, lightweight tech, and smart accessories.</p>
+          <a href="#products" class="btn-ghost-link">See the lineup →</a>
+        </article>
+        <article class="collection-card">
+          <div class="collection-label">Bestsellers</div>
+          <h3>Weekend Escapes</h3>
+          <p>Outdoor-ready apparel, packs, and utility gadgets.</p>
+          <a href="#products" class="btn-ghost-link">Explore picks →</a>
+        </article>
+      </section>
 
       <!-- Filters -->
       <section class="filters-card" id="filters">
@@ -192,6 +237,45 @@
         </div>
         <div id="pagination" class="pagination"></div>
       </section>
+
+      <section class="newsletter-card" aria-label="Newsletter signup">
+        <div>
+          <h3>Stay in the loop</h3>
+          <p>Get weekly drops, early access, and curated offers.</p>
+        </div>
+        <form class="newsletter-form">
+          <input
+            type="email"
+            name="email"
+            placeholder="Enter your email"
+            required
+            class="filter-input"
+          />
+          <button type="submit" class="btn-add-cart">Subscribe</button>
+        </form>
+      </section>
+
+      <footer class="site-footer">
+        <div class="footer-brand">
+          <span class="navbar-logo">🛒</span>
+          <div>
+            <div class="footer-title">AliStore</div>
+            <div class="footer-subtitle">Deals, reviews, and lightning-fast checkout.</div>
+          </div>
+        </div>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="cart.html">Cart</a>
+          <a href="payment.html">Checkout</a>
+          <a href="orders.html">Orders</a>
+          <a href="categories.html">Categories</a>
+          <a href="account.html">Account</a>
+          <a href="login.html">Login</a>
+          <a href="register.html">Register</a>
+          <a href="#filters">Filters</a>
+        </div>
+        <div class="footer-note">Built with ❤️ for shoppers everywhere.</div>
+      </footer>
     </div>
 
     <script src="script.js"></script>

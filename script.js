@@ -19,6 +19,8 @@ const resetFiltersBtn = document.getElementById("resetFiltersBtn");
 
 const modeToggleBtn = document.getElementById("modeToggle");
 const modeToggleText = document.getElementById("modeToggleText");
+const urlParams = new URLSearchParams(window.location.search);
+const initialCategoryParam = urlParams.get("category");
 
 const welcomeBanner = document.getElementById("welcomeBanner");
 const closeWelcomeBtn = document.getElementById("closeWelcomeBtn");
@@ -91,6 +93,11 @@ function addToCart(product) {
   updateCartCount(cartItems.length);
 }
 
+// ==== Helpers ====
+function buildProductUrl(productId) {
+  return `product.html?id=${encodeURIComponent(productId)}`;
+}
+
 // ==== View Mode (Grid / List) ====
 function setGridView() {
   productsContainer.classList.remove("products-list");
@@ -154,10 +161,15 @@ function populateCategoryFilter(productsArray) {
     categoryFilter.appendChild(option);
   });
 
-  // Restore saved category selection from localStorage (if any)
+  // Restore saved category selection from localStorage (if any),
+  // but allow URL param ?category=... to take priority (for category deep links).
   const savedCategory = localStorage.getItem("products-ui-category");
-  if (savedCategory) {
-    categoryFilter.value = savedCategory;
+  const initialCategory = initialCategoryParam || savedCategory;
+  if (initialCategory) {
+    categoryFilter.value = initialCategory;
+    if (initialCategoryParam) {
+      localStorage.setItem("products-ui-category", initialCategoryParam);
+    }
   }
 }
 
@@ -207,9 +219,12 @@ function renderProducts(productsArray, totalCount) {
   productsArray.forEach((product) => {
     const ratingValue = product.rating?.rate ?? 0;
     const ratingCount = product.rating?.count ?? 0;
+    const detailsUrl = buildProductUrl(product.id);
 
     const card = document.createElement("article");
     card.className = "product-card";
+    card.setAttribute("tabindex", "0");
+    card.setAttribute("role", "link");
 
     const imgWrapper = document.createElement("div");
     imgWrapper.className = "product-image-wrapper";
@@ -253,7 +268,7 @@ function renderProducts(productsArray, totalCount) {
     const detailsBtn = document.createElement("button");
     detailsBtn.className = "btn-details";
     detailsBtn.type = "button";
-    detailsBtn.textContent = "Show details";
+    detailsBtn.textContent = "View details";
 
     footer.appendChild(price);
     footer.appendChild(ratingBadge);
@@ -262,7 +277,6 @@ function renderProducts(productsArray, totalCount) {
 
     const extra = document.createElement("div");
     extra.className = "product-extra";
-    extra.setAttribute("hidden", "");
 
     const description = document.createElement("p");
     description.className = "product-description";
@@ -275,13 +289,19 @@ function renderProducts(productsArray, totalCount) {
     });
 
     detailsBtn.addEventListener("click", () => {
-      const isHidden = extra.hasAttribute("hidden");
-      if (isHidden) {
-        extra.removeAttribute("hidden");
-        detailsBtn.textContent = "Hide details";
-      } else {
-        extra.setAttribute("hidden", "");
-        detailsBtn.textContent = "Show details";
+      window.location.href = detailsUrl;
+    });
+
+    card.addEventListener("click", (event) => {
+      const clickedButton = event.target.closest("button");
+      if (clickedButton) return;
+      window.location.href = detailsUrl;
+    });
+
+    card.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        window.location.href = detailsUrl;
       }
     });
 

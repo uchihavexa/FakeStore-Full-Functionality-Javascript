@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>AliStore – Orders</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app">
+      <nav class="navbar">
+        <a class="navbar-left navbar-logo-link" href="index.html" aria-label="Go to home">
+          <span class="navbar-logo">🛒</span>
+          <div class="navbar-brand">
+            <span class="navbar-brand-main">AliStore</span>
+            <span class="navbar-brand-sub">Best Deals</span>
+          </div>
+        </a>
+
+        <div class="navbar-center">
+          <div class="navbar-search">
+            <input
+              type="text"
+              class="navbar-search-input"
+              placeholder="Search for products..."
+              disabled
+            />
+            <button class="navbar-search-btn" disabled>Search</button>
+          </div>
+        </div>
+
+        <div class="navbar-right">
+          <a class="navbar-action" href="account.html">
+            <span class="navbar-action-icon">👤</span>
+            <span class="navbar-action-text">Account</span>
+          </a>
+          <a class="navbar-action" href="orders.html">
+            <span class="navbar-action-icon">📦</span>
+            <span class="navbar-action-text">Orders</span>
+          </a>
+          <a class="navbar-action" href="cart.html" id="cartButton">
+            <span class="navbar-action-icon">🛒</span>
+            <span class="navbar-action-text">Cart</span>
+            <span class="cart-count-badge" id="cartCount" hidden>0</span>
+          </a>
+          <button id="modeToggle" class="mode-toggle">
+            <span class="mode-toggle-icon">🌙</span>
+            <span id="modeToggleText">Dark Mode</span>
+          </button>
+        </div>
+      </nav>
+
+      <header>
+        <div class="title-group">
+          <h1>Your Orders</h1>
+          <p>تابع طلباتك، حالة الشحن، والفواتير السابقة.</p>
+        </div>
+      </header>
+
+      <section class="page-card">
+        <div class="section-header">
+          <div>
+            <h2>Order history</h2>
+            <p class="muted">استخدم رقم الطلب لمعرفة التفاصيل أو حالة الشحن.</p>
+          </div>
+          <a href="index.html" class="btn-details">← Continue shopping</a>
+        </div>
+
+        <div class="order-track">
+          <input
+            type="text"
+            class="filter-input"
+            placeholder="Search by order ID"
+            id="orderSearch"
+          />
+          <button class="btn-details" id="orderSearchBtn">Find order</button>
+        </div>
+
+        <div id="ordersList" class="orders-list"></div>
+        <div id="ordersEmpty" class="empty-state" hidden>
+          لا توجد طلبات حتى الآن.
+          <br />
+          <a href="index.html" class="btn-ghost-link">← Shop now</a>
+        </div>
+      </section>
+
+      <footer class="site-footer">
+        <div class="footer-brand">
+          <span class="navbar-logo">🛒</span>
+          <div>
+            <div class="footer-title">AliStore</div>
+            <div class="footer-subtitle">Deals, reviews, and lightning-fast checkout.</div>
+          </div>
+        </div>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="cart.html">Cart</a>
+          <a href="payment.html">Checkout</a>
+          <a href="orders.html">Orders</a>
+          <a href="categories.html">Categories</a>
+          <a href="account.html">Account</a>
+          <a href="login.html">Login</a>
+          <a href="register.html">Register</a>
+          <a href="index.html#filters">Filters</a>
+        </div>
+        <div class="footer-note">Built with ❤️ for shoppers everywhere.</div>
+      </footer>
+    </div>
+
+    <script src="page-common.js"></script>
+    <script src="orders.js"></script>
+  </body>
+</html>

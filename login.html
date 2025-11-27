@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>AliStore – Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app">
+      <nav class="navbar">
+        <a class="navbar-left navbar-logo-link" href="index.html" aria-label="Go to home">
+          <span class="navbar-logo">🛒</span>
+          <div class="navbar-brand">
+            <span class="navbar-brand-main">AliStore</span>
+            <span class="navbar-brand-sub">Best Deals</span>
+          </div>
+        </a>
+
+        <div class="navbar-center">
+          <div class="navbar-search">
+            <input
+              type="text"
+              class="navbar-search-input"
+              placeholder="Search for products..."
+              disabled
+            />
+            <button class="navbar-search-btn" disabled>Search</button>
+          </div>
+        </div>
+
+        <div class="navbar-right">
+          <a class="navbar-action" href="account.html">
+            <span class="navbar-action-icon">👤</span>
+            <span class="navbar-action-text">Account</span>
+          </a>
+          <a class="navbar-action" href="orders.html">
+            <span class="navbar-action-icon">📦</span>
+            <span class="navbar-action-text">Orders</span>
+          </a>
+          <a class="navbar-action" href="cart.html" id="cartButton">
+            <span class="navbar-action-icon">🛒</span>
+            <span class="navbar-action-text">Cart</span>
+            <span class="cart-count-badge" id="cartCount" hidden>0</span>
+          </a>
+          <button id="modeToggle" class="mode-toggle">
+            <span class="mode-toggle-icon">🌙</span>
+            <span id="modeToggleText">Dark Mode</span>
+          </button>
+        </div>
+      </nav>
+
+      <header>
+        <div class="title-group">
+          <h1>Welcome back</h1>
+          <p>سجّل الدخول للوصول لعناوينك، طلباتك، وسلة التسوق المحفوظة.</p>
+        </div>
+      </header>
+
+      <section class="auth-card">
+        <form class="form-grid">
+          <label class="form-field">
+            <span>Email</span>
+            <input type="email" class="filter-input" placeholder="you@example.com" required />
+          </label>
+          <label class="form-field">
+            <span>Password</span>
+            <input type="password" class="filter-input" placeholder="••••••••" required />
+          </label>
+          <label class="checkbox-field">
+            <input type="checkbox" />
+            <span>Keep me signed in</span>
+          </label>
+          <button class="btn-checkout full-width" type="submit">Sign in</button>
+        </form>
+        <p class="muted" style="margin-top: 0.6rem">
+          New to AliStore?
+          <a href="register.html" class="btn-ghost-link">Create an account</a>
+        </p>
+        <p class="muted" style="margin-top: 0.3rem">
+          Forgot password? <a href="#" class="btn-ghost-link">Reset it</a>
+        </p>
+      </section>
+
+      <footer class="site-footer">
+        <div class="footer-brand">
+          <span class="navbar-logo">🛒</span>
+          <div>
+            <div class="footer-title">AliStore</div>
+            <div class="footer-subtitle">Deals, reviews, and lightning-fast checkout.</div>
+          </div>
+        </div>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="cart.html">Cart</a>
+          <a href="payment.html">Checkout</a>
+          <a href="orders.html">Orders</a>
+          <a href="categories.html">Categories</a>
+          <a href="account.html">Account</a>
+          <a href="login.html">Login</a>
+          <a href="register.html">Register</a>
+          <a href="index.html#filters">Filters</a>
+        </div>
+        <div class="footer-note">Built with ❤️ for shoppers everywhere.</div>
+      </footer>
+    </div>
+
+    <script src="page-common.js"></script>
+  </body>
+</html>

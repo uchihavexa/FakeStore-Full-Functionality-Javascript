@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>AliStore – Checkout & Payment</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app">
+      <nav class="navbar">
+        <a class="navbar-left navbar-logo-link" href="index.html" aria-label="Go to home">
+          <span class="navbar-logo">🛒</span>
+          <div class="navbar-brand">
+            <span class="navbar-brand-main">AliStore</span>
+            <span class="navbar-brand-sub">Best Deals</span>
+          </div>
+        </a>
+
+        <div class="navbar-center">
+          <div class="navbar-search">
+            <input
+              type="text"
+              class="navbar-search-input"
+              placeholder="Search for products..."
+              disabled
+            />
+            <button class="navbar-search-btn" disabled>Search</button>
+          </div>
+        </div>
+
+        <div class="navbar-right">
+          <a class="navbar-action" href="account.html">
+            <span class="navbar-action-icon">👤</span>
+            <span class="navbar-action-text">Account</span>
+          </a>
+          <a class="navbar-action" href="orders.html">
+            <span class="navbar-action-icon">📦</span>
+            <span class="navbar-action-text">Orders</span>
+          </a>
+          <a class="navbar-action" href="cart.html" id="cartButton">
+            <span class="navbar-action-icon">🛒</span>
+            <span class="navbar-action-text">Cart</span>
+            <span class="cart-count-badge" id="cartCount" hidden>0</span>
+          </a>
+          <button id="modeToggle" class="mode-toggle">
+            <span class="mode-toggle-icon">🌙</span>
+            <span id="modeToggleText">Dark Mode</span>
+          </button>
+        </div>
+      </nav>
+
+      <header>
+        <div class="title-group">
+          <h1>Checkout & Payment</h1>
+          <p>أكمل بيانات الاتصال، الشحن، والدفع لتأكيد طلبك بسرعة وأمان.</p>
+        </div>
+      </header>
+
+      <section class="advantages-bar" aria-label="Store advantages">
+        <div class="advantage-item">
+          <span class="advantage-icon">⚡</span>
+          <div>
+            <div class="advantage-title">Fast shipping</div>
+            <div class="advantage-desc">2-day delivery to most regions.</div>
+          </div>
+        </div>
+        <div class="advantage-item">
+          <span class="advantage-icon">💳</span>
+          <div>
+            <div class="advantage-title">Secure checkout</div>
+            <div class="advantage-desc">SSL payments with buyer protection.</div>
+          </div>
+        </div>
+        <div class="advantage-item">
+          <span class="advantage-icon">🤝</span>
+          <div>
+            <div class="advantage-title">Free returns</div>
+            <div class="advantage-desc">30-day easy returns on all items.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="checkout-page">
+        <div class="checkout-form-card">
+          <div id="checkoutSuccess" class="alert-success" hidden>
+            ✅ Thanks! Your order is confirmed. A receipt was sent to your email.
+          </div>
+
+          <form id="checkoutForm">
+            <div class="form-section">
+              <div class="form-section-title">Contact</div>
+              <div class="form-grid">
+                <label class="form-field">
+                  <span>Full name</span>
+                  <input
+                    type="text"
+                    name="fullName"
+                    class="filter-input"
+                    placeholder="Jane Doe"
+                    required
+                  />
+                </label>
+                <label class="form-field">
+                  <span>Email</span>
+                  <input
+                    type="email"
+                    name="email"
+                    class="filter-input"
+                    placeholder="you@example.com"
+                    required
+                  />
+                </label>
+                <label class="form-field">
+                  <span>Phone</span>
+                  <input
+                    type="tel"
+                    name="phone"
+                    class="filter-input"
+                    placeholder="+1 555 123 4567"
+                    required
+                  />
+                </label>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <div class="form-section-title">Shipping</div>
+              <div class="form-grid">
+                <label class="form-field">
+                  <span>Street address</span>
+                  <input
+                    type="text"
+                    name="address"
+                    class="filter-input"
+                    placeholder="123 Main St"
+                    required
+                  />
+                </label>
+                <label class="form-field">
+                  <span>City</span>
+                  <input
+                    type="text"
+                    name="city"
+                    class="filter-input"
+                    placeholder="City"
+                    required
+                  />
+                </label>
+                <label class="form-field">
+                  <span>Country</span>
+                  <select name="country" class="filter-select" required>
+                    <option value="">Select country</option>
+                    <option value="US">United States</option>
+                    <option value="CA">Canada</option>
+                    <option value="UK">United Kingdom</option>
+                    <option value="SA">Saudi Arabia</option>
+                    <option value="EG">Egypt</option>
+                    <option value="AE">UAE</option>
+                  </select>
+                </label>
+                <label class="form-field">
+                  <span>Postal code</span>
+                  <input
+                    type="text"
+                    name="postal"
+                    class="filter-input"
+                    placeholder="12345"
+                    required
+                  />
+                </label>
+              </div>
+
+              <div class="shipping-methods">
+                <label class="radio-card">
+                  <input type="radio" name="shippingMethod" value="standard" checked />
+                  <div>
+                    <div class="radio-title">Standard</div>
+                    <div class="radio-desc">3-5 business days • $5</div>
+                  </div>
+                </label>
+                <label class="radio-card">
+                  <input type="radio" name="shippingMethod" value="express" />
+                  <div>
+                    <div class="radio-title">Express</div>
+                    <div class="radio-desc">1-2 business days • $12</div>
+                  </div>
+                </label>
+                <label class="radio-card">
+                  <input type="radio" name="shippingMethod" value="pickup" />
+                  <div>
+                    <div class="radio-title">Store pickup</div>
+                    <div class="radio-desc">Ready today • $0</div>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <div class="form-section-title">Payment</div>
+              <div class="form-grid">
+                <label class="form-field">
+                  <span>Name on card</span>
+                  <input
+                    type="text"
+                    name="cardName"
+                    class="filter-input"
+                    placeholder="Jane Doe"
+                    required
+                  />
+                </label>
+                <label class="form-field">
+                  <span>Card number</span>
+                  <input
+                    type="text"
+                    name="cardNumber"
+                    class="filter-input"
+                    inputmode="numeric"
+                    pattern="[0-9 ]{12,19}"
+                    placeholder="4242 4242 4242 4242"
+                    required
+                  />
+                </label>
+                <label class="form-field">
+                  <span>Expiry</span>
+                  <input
+                    type="text"
+                    name="expiry"
+                    class="filter-input"
+                    placeholder="MM/YY"
+                    required
+                  />
+                </label>
+                <label class="form-field">
+                  <span>CVC</span>
+                  <input
+                    type="text"
+                    name="cvc"
+                    class="filter-input"
+                    inputmode="numeric"
+                    pattern="[0-9]{3,4}"
+                    placeholder="123"
+                    required
+                  />
+                </label>
+              </div>
+
+              <label class="checkbox-field">
+                <input type="checkbox" name="saveCard" />
+                <span>Save card for next time</span>
+              </label>
+            </div>
+
+            <button type="submit" class="btn-checkout full-width" id="placeOrderBtn">
+              Place order securely
+            </button>
+          </form>
+        </div>
+
+        <aside class="order-summary-card" id="orderSummary">
+          <div class="form-section-title">Order summary</div>
+          <div id="summaryLoading" class="loading">Loading your items...</div>
+          <div id="summaryEmpty" class="empty-state" hidden>
+            سلة التسوق فارغة حالياً.
+            <br />
+            <a href="index.html" class="btn-ghost-link">← Continue shopping</a>
+          </div>
+          <div id="summaryContent" hidden>
+            <div id="summaryItems" class="summary-items"></div>
+            <div class="summary-row">
+              <span>Items</span>
+              <span id="summaryCount">0</span>
+            </div>
+            <div class="summary-row">
+              <span>Subtotal</span>
+              <span id="summarySubtotal">$0.00</span>
+            </div>
+            <div class="summary-row">
+              <span>Shipping</span>
+              <span id="summaryShipping">$0.00</span>
+            </div>
+            <div class="summary-row summary-total">
+              <span>Total</span>
+              <span id="summaryTotal">$0.00</span>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <section class="newsletter-card" aria-label="Newsletter signup">
+        <div>
+          <h3>Stay in the loop</h3>
+          <p>Get weekly drops, early access, and curated offers.</p>
+        </div>
+        <form class="newsletter-form">
+          <input
+            type="email"
+            name="email"
+            placeholder="Enter your email"
+            required
+            class="filter-input"
+          />
+          <button type="submit" class="btn-add-cart">Subscribe</button>
+        </form>
+      </section>
+
+      <footer class="site-footer">
+        <div class="footer-brand">
+          <span class="navbar-logo">🛒</span>
+          <div>
+            <div class="footer-title">AliStore</div>
+            <div class="footer-subtitle">Deals, reviews, and lightning-fast checkout.</div>
+          </div>
+        </div>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="cart.html">Cart</a>
+          <a href="payment.html">Checkout</a>
+          <a href="orders.html">Orders</a>
+          <a href="categories.html">Categories</a>
+          <a href="account.html">Account</a>
+          <a href="login.html">Login</a>
+          <a href="register.html">Register</a>
+          <a href="index.html#filters">Filters</a>
+        </div>
+        <div class="footer-note">Built with ❤️ for shoppers everywhere.</div>
+      </footer>
+    </div>
+
+    <script src="payment.js"></script>
+  </body>
+</html>

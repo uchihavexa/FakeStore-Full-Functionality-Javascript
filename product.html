@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>AliStore – Cart</title>
+    <title>AliStore – Product Details</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="style.css" />
   </head>
@@ -22,7 +22,7 @@
             <input
               type="text"
               class="navbar-search-input"
-              placeholder="Search for products, categories..."
+              placeholder="Search for products..."
               disabled
             />
             <button class="navbar-search-btn" disabled>Search</button>
@@ -52,10 +52,10 @@
 
       <header>
         <div class="title-group">
-          <h1>Your Shopping Cart</h1>
+          <h1 id="pageTitle">Product Details</h1>
           <p>
-            راجع المنتجات التي قمت بإضافتها إلى السلة، عدّل الكميات أو أكمل عملية
-            الشراء لاحقاً.
+            استعرض وصف المنتج، سعره، تقييمه، وكل المعلومات المرتبطة به في صفحة
+            مستقلة.
           </p>
         </div>
       </header>
@@ -84,76 +84,47 @@
         </div>
       </section>
 
-      <section class="cart-page">
-        <div id="cartLoading" class="loading">Loading your cart...</div>
-        <div id="cartSkeleton" class="cart-skeleton" hidden>
-          <div class="cart-skeleton-item">
-            <div class="skeleton thumb"></div>
-            <div class="skeleton text"></div>
-            <div class="skeleton text short"></div>
-          </div>
-          <div class="cart-skeleton-item">
-            <div class="skeleton thumb"></div>
-            <div class="skeleton text"></div>
-            <div class="skeleton text short"></div>
-          </div>
-        </div>
-
-        <div id="cartEmpty" class="empty-state" hidden>
-          سلة التسوق فارغة حالياً. ابدأ التسوق من الصفحة الرئيسية وأضف بعض
-          المنتجات.
+      <section class="product-detail">
+        <div id="productLoading" class="loading">Loading product...</div>
+        <div id="productError" class="empty-state" hidden>
+          <span id="productErrorText">
+            تعذّر العثور على هذا المنتج. جرّب العودة للصفحة الرئيسية.
+          </span>
           <br />
-          <a href="index.html" class="btn-ghost-link">← Continue shopping</a>
+          <a href="index.html" class="btn-ghost-link">← Back to products</a>
         </div>
 
-        <div id="cartContent" class="cart-content" hidden>
-          <div class="cart-items" id="cartItems"></div>
+        <article id="productCard" class="product-detail-card" hidden>
+          <div class="product-detail-hero">
+            <div class="product-detail-image-wrapper">
+              <img
+                id="productImage"
+                class="product-detail-image"
+                alt="Product image"
+              />
+            </div>
 
-          <aside class="cart-summary" id="cartSummary">
-            <h2>Order Summary</h2>
-            <div class="cart-summary-row">
-              <span>Items</span>
-              <span id="cartCountSummary">0</span>
-            </div>
-            <div class="cart-summary-row">
-              <span>Subtotal</span>
-              <span id="cartSubtotal">$0.00</span>
-            </div>
-            <div class="cart-summary-row">
-              <span>Shipping</span>
-              <span id="cartShipping">$0.00</span>
-            </div>
-            <div class="cart-summary-row">
-              <span>Tax (est.)</span>
-              <span id="cartTax">$0.00</span>
-            </div>
-            <div class="cart-summary-row">
-              <span>Discount</span>
-              <span id="cartDiscount">$0.00</span>
-            </div>
-            <div class="cart-summary-row">
-              <span>Total</span>
-              <span id="cartTotal">$0.00</span>
-            </div>
-            <div class="promo-box">
-              <label for="promoCode">Promo code</label>
-              <div class="promo-inline">
-                <input
-                  id="promoCode"
-                  type="text"
-                  class="filter-input"
-                  placeholder="SAVE10 / FREESHIP"
-                />
-                <button type="button" id="applyPromoBtn" class="btn-details">
-                  Apply
-                </button>
+            <div class="product-detail-body">
+              <p id="productCategory" class="product-detail-category"></p>
+              <h2 id="productTitle" class="product-detail-title"></h2>
+              <div id="productRating" class="product-detail-rating"></div>
+              <p id="productDescription" class="product-detail-description"></p>
+
+              <div class="product-detail-meta">
+                <div class="product-detail-price">
+                  <span>Price</span>
+                  <strong id="productPrice"></strong>
+                </div>
+                <div class="product-detail-actions">
+                  <button id="productAddToCart" class="btn-add-cart" type="button">
+                    Add to cart
+                  </button>
+                  <a href="index.html" class="btn-ghost-link">← Back to products</a>
+                </div>
               </div>
-              <div id="promoFeedback" class="promo-feedback"></div>
             </div>
-            <a class="btn-checkout" href="payment.html">Proceed to Checkout</a>
-            <a href="index.html" class="btn-ghost-link">← Continue shopping</a>
-          </aside>
-        </div>
+          </div>
+        </article>
       </section>
 
       <section class="newsletter-card" aria-label="Newsletter signup">
@@ -196,7 +167,6 @@
       </footer>
     </div>
 
-    <script src="cart-totals.js"></script>
-    <script src="cart.js"></script>
+    <script src="product.js"></script>
   </body>
 </html>
